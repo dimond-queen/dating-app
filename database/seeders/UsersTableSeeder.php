@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
     {
         // Create admin user
         $admin = User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => 'admin@loveconnect.com'],
             [
                 'name' => 'Admin User',
                 'password' => Hash::make('password'),
@@ -102,6 +102,106 @@ class UsersTableSeeder extends Seeder
             ],
             [
                 'photo_url' => 'https://randomuser.me/api/portraits/women/1.jpg',
+                'order' => 1,
+            ]
+        );
+
+        // Create additional demo users for testing
+        $user3 = User::updateOrCreate(
+            ['email' => 'mike@example.com'],
+            [
+                'name' => 'Mike Johnson',
+                'password' => Hash::make('password'),
+                'age' => 32,
+                'is_online' => false,
+                'last_active_at' => now()->subMinutes(30),
+            ]
+        );
+        
+        Profile::updateOrCreate(
+            ['user_id' => $user3->id],
+            [
+                'bio' => 'Software developer who loves coding and gaming',
+                'gender' => 'Male',
+                'location' => 'San Francisco',
+                'interests' => json_encode(['coding', 'gaming', 'music']),
+                'preferences' => json_encode(['gender' => 'Female', 'age_min' => 22, 'age_max' => 35]),
+            ]
+        );
+        
+        Photo::updateOrCreate(
+            [
+                'user_id' => $user3->id,
+                'is_primary' => true,
+            ],
+            [
+                'photo_url' => 'https://randomuser.me/api/portraits/men/2.jpg',
+                'order' => 1,
+            ]
+        );
+
+        $user4 = User::updateOrCreate(
+            ['email' => 'sarah@example.com'],
+            [
+                'name' => 'Sarah Wilson',
+                'password' => Hash::make('password'),
+                'age' => 29,
+                'is_online' => true,
+                'last_active_at' => now(),
+            ]
+        );
+        
+        Profile::updateOrCreate(
+            ['user_id' => $user4->id],
+            [
+                'bio' => 'Artist and yoga instructor seeking meaningful connections',
+                'gender' => 'Female',
+                'location' => 'Austin',
+                'interests' => json_encode(['art', 'yoga', 'meditation', 'nature']),
+                'preferences' => json_encode(['gender' => 'Male', 'age_min' => 27, 'age_max' => 40]),
+            ]
+        );
+        
+        Photo::updateOrCreate(
+            [
+                'user_id' => $user4->id,
+                'is_primary' => true,
+            ],
+            [
+                'photo_url' => 'https://randomuser.me/api/portraits/women/2.jpg',
+                'order' => 1,
+            ]
+        );
+
+        $user5 = User::updateOrCreate(
+            ['email' => 'alex@example.com'],
+            [
+                'name' => 'Alex Chen',
+                'password' => Hash::make('password'),
+                'age' => 27,
+                'is_online' => false,
+                'last_active_at' => now()->subHours(1),
+            ]
+        );
+        
+        Profile::updateOrCreate(
+            ['user_id' => $user5->id],
+            [
+                'bio' => 'Entrepreneur and fitness enthusiast',
+                'gender' => 'Male',
+                'location' => 'Miami',
+                'interests' => json_encode(['fitness', 'business', 'travel', 'food']),
+                'preferences' => json_encode(['gender' => 'Female', 'age_min' => 24, 'age_max' => 32]),
+            ]
+        );
+        
+        Photo::updateOrCreate(
+            [
+                'user_id' => $user5->id,
+                'is_primary' => true,
+            ],
+            [
+                'photo_url' => 'https://randomuser.me/api/portraits/men/3.jpg',
                 'order' => 1,
             ]
         );

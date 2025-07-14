@@ -3,7 +3,9 @@
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\AdminSettingsController;
 use App\Http\Controllers\API\BackupController;
+use App\Http\Controllers\API\DatabaseConfigController;
 use App\Http\Controllers\API\DatabaseController;
+use App\Http\Controllers\API\LogController;
 use App\Http\Controllers\API\SettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,10 +43,22 @@ Route::middleware('auth:sanctum')->prefix('api/admin')->group(function () {
     Route::post('/database/seed', [DatabaseController::class, 'seed']);
     Route::post('/database/reset', [DatabaseController::class, 'reset']);
     
+    // Database configuration
+    Route::get('/database/config', [DatabaseConfigController::class, 'index']);
+    Route::put('/database/config', [DatabaseConfigController::class, 'update']);
+    Route::post('/database/config/test', [DatabaseConfigController::class, 'testConnection']);
+    
     // Backup management
     Route::get('/backups', [BackupController::class, 'index']);
     Route::post('/backups', [BackupController::class, 'create']);
     Route::get('/backups/{filename}', [BackupController::class, 'download']);
     Route::post('/backups/{filename}/restore', [BackupController::class, 'restore']);
     Route::delete('/backups/{filename}', [BackupController::class, 'destroy']);
+    
+    // Log management
+    Route::get('/logs', [LogController::class, 'index']);
+    Route::get('/logs/{filename}', [LogController::class, 'show']);
+    Route::get('/logs/{filename}/download', [LogController::class, 'download']);
+    Route::delete('/logs/{filename}', [LogController::class, 'destroy']);
+    Route::post('/logs/clear', [LogController::class, 'clear']);
 });
