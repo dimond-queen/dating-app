@@ -5,9 +5,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0',
-    port: 12000,
+    port: 12003,
     allowedHosts: true,
-    cors: true
+    cors: {
+      origin: '*',
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      credentials: true
+    }
   },
   build: {
     outDir: 'dist',
